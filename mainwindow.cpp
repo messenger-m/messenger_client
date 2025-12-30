@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->password->setEchoMode(QLineEdit::Password);
 
+
     ui->toggleButton->setCheckable(true);
     ui->toggleButton->setText("👁");
     ui->toggleButton->setCursor(Qt::PointingHandCursor);
