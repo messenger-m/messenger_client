@@ -11,6 +11,10 @@ qt_add_executable(messengerDesktop
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
+    authservice.h
+    authservice.cpp
+    chatclient.h
+    chatclient.cpp
 )
 
 target_link_libraries(messengerDesktop

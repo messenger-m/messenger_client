@@ -1,44 +1,56 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QTime>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QTextCursor>
+
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QMainWindow(parent),
+    ui(new Ui::MainWindow),
+    auth(new AuthService(this)),
+    chat(new ChatClient(this))
 {
     ui->setupUi(this);
 
-    connect(&socket, &QWebSocket::connected,
-            this, &MainWindow::onConnected);
-
     ui->password->setEchoMode(QLineEdit::Password);
-
 
     ui->toggleButton->setCheckable(true);
     ui->toggleButton->setText("👁");
-    ui->toggleButton->setCursor(Qt::PointingHandCursor);
 
-    // подключаем сигнал
-    connect(ui->toggleButton, &QPushButton::toggled, [=](bool checked){
-        if(checked)
-            ui->password->setEchoMode(QLineEdit::Normal); // показываем пароль
-        else
-            ui->password->setEchoMode(QLineEdit::Password); // скрываем
+    connect(ui->toggleButton, &QPushButton::toggled,
+            this, [=](bool checked){
+                ui->password->setEchoMode(
+                    checked ? QLineEdit::Normal : QLineEdit::Password
+                    );
+            });
+
+    connect(ui->loginButton, &QPushButton::clicked,
+            this, &MainWindow::onLoginClicked);
+
+    connect(ui->sendButton, &QPushButton::clicked,
+            this, &MainWindow::onSendClicked);
+
+    connect(auth, &AuthService::loginSuccess, this, [=]() {
+        ui->stackedWidget->setCurrentWidget(ui->pageChat);
+        chat->connectToServer();
+        ui->isSuccess->setText("Login Success");
     });
 
-    connect(&socket, &QWebSocket::textMessageReceived,
-            this, &MainWindow::onTextMessageReceived);
+    connect(auth, &AuthService::loginError, this, [=](){
+        ui->isSuccess->setText("<font color='#ff0000'><b>Authentication failed</b></font>");
+    });
+
+    connect(chat, &ChatClient::messageReceived,
+            this, &MainWindow::onMessageReceived);
+
     ui->stackedWidget->setCurrentWidget(ui->pageLogin);
+}
 
-    networkManager = new QNetworkAccessManager(this);
-    // connect(networkManager, &QNetworkAccessManager::finished, this, &MainWindow::onLoginReply);
-    connect(
-        ui->loginButton,
-        &QPushButton::clicked,
-        this,
-        &MainWindow::onLoginClicked
-        );
-
-
+MainWindow::~MainWindow()
+{
+    delete ui;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* event)
@@ -47,7 +59,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     {
         if (ui->stackedWidget->currentWidget() == ui->pageLogin)
             ui->loginButton->click();
-        else if (ui->stackedWidget->currentWidget() == ui->pageChat)
+        else
             ui->sendButton->click();
     }
     else
@@ -56,37 +68,43 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     }
 }
 
-void MainWindow::sendLoginRequest(const QString& login, const QString& password)
-{
-     qDebug() << "sendLoginRequest";
-    QUrl url("http://127.0.0.1:3000/login"); // Go-gateway
-    QNetworkRequest request(url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-    QJsonObject obj;
-    obj["login"] = login;
-    obj["password"] = password;
-
-    networkManager->post(request, QJsonDocument(obj).toJson());
-}
-
 void MainWindow::onLoginClicked()
 {
-    QString login = ui->login->text();
-    QString password = ui->password->text();
-    qDebug() << login << password;
-    sendLoginRequest(login, password);
-    ui->stackedWidget->setCurrentWidget(ui->pageChat);
-    socket.open(QUrl("ws://127.0.0.1:3000/ws"));
+    auth->login(
+        ui->login->text(),
+        ui->password->text()
+        );
 }
 
-
-void MainWindow::onConnected()
+void MainWindow::onSendClicked()
 {
-    qDebug() << "connected";
+    QString text = ui->messageEdit->toPlainText().trimmed();
+    if (text.isEmpty())
+        return;
+
+    appendMessage(
+        "<font color='#7FFFD4'><b>Я:</b></font> "
+        "<font color='#00FFFF'>" + text.toHtmlEscaped() + "</font>",
+        Qt::AlignRight
+        );
+
+    chat->sendMessage(text);
+    ui->messageEdit->clear();
 }
 
-void MainWindow::appendMessage(const QString &html, Qt::Alignment align)
+void MainWindow::onMessageReceived(const QString& text)
+{
+    QJsonDocument doc = QJsonDocument::fromJson(text.toUtf8());
+    QString msg = doc.object().value("text").toString();
+
+    appendMessage(
+        "<font color='#8FBC8F'><b>Сервер:</b></font> "
+        "<font color='#00FF00'>" + text.toHtmlEscaped() + "</font>",
+        Qt::AlignLeft
+        );
+}
+
+void MainWindow::appendMessage(const QString& html, Qt::Alignment align)
 {
     QTextCursor cursor = ui->chatWindow->textCursor();
     cursor.movePosition(QTextCursor::End);
@@ -96,50 +114,5 @@ void MainWindow::appendMessage(const QString &html, Qt::Alignment align)
 
     cursor.insertBlock(format);
     cursor.insertHtml(html);
-
     ui->chatWindow->setTextCursor(cursor);
-}
-
-void MainWindow::on_sendButton_clicked()
-{
-    QString text = ui->messageEdit->toPlainText().trimmed().toHtmlEscaped();
-    qDebug() << text;
-    if (text.isEmpty())
-        return;
-
-    QString time = QTime::currentTime().toString("HH:mm");
-
-    appendMessage(
-        "<font color='#7FFFD4'><b>Я:</b></font> "
-        "<font color='#00FFFF'>" + text + "</font>",
-        Qt::AlignRight
-        );
-
-    QJsonObject json;
-    json["text"] = text;
-
-    QJsonDocument doc(json);
-    socket.sendTextMessage(doc.toJson(QJsonDocument::Compact));
-
-    ui->messageEdit->clear();
-}
-
-void MainWindow::onTextMessageReceived(const QString &message)
-{
-    QJsonDocument doc = QJsonDocument::fromJson(message.toUtf8());
-    QString text = doc.object().value("text").toString().toHtmlEscaped();
-
-    QString time = QTime::currentTime().toString("HH:mm");
-
-    appendMessage(
-        "<font color='#8FBC8F'><b>Сервер:</b></font> "
-        "<font color='#00FF00'>" + text + "</font>",
-        Qt::AlignLeft
-        );
-
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
 }
