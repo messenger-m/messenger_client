@@ -10,10 +10,12 @@ class AuthService : public QObject
 public:
     explicit AuthService(QObject* parent = nullptr);
     void login(const QString& login, const QString& password);
+    void register_user(const QString& login, const QString& password);
+
 
 signals:
     void loginSuccess();
-    void loginError(const QString& error);
+    void loginError(const QString& message);
 
 private:
     QNetworkAccessManager* manager;

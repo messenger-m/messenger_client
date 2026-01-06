@@ -26,10 +26,13 @@ void AuthService::login(const QString& login, const QString& password)
         );
 
     connect(reply, &QNetworkReply::finished, this, [=]() {
-        if (reply->error() == QNetworkReply::NoError)
+        QString body = QString::fromUtf8(reply->readAll());
+
+        if (reply->error() == QNetworkReply::NoError) {
             emit loginSuccess();
-        else
-            emit loginError(reply->errorString());
+        } else {
+            emit loginError(body);
+        }
 
         reply->deleteLater();
     });

@@ -32,15 +32,22 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->sendButton, &QPushButton::clicked,
             this, &MainWindow::onSendClicked);
 
-    connect(auth, &AuthService::loginSuccess, this, [=]() {
-        ui->stackedWidget->setCurrentWidget(ui->pageChat);
-        chat->connectToServer();
-        ui->isSuccess->setText("Login Success");
-    });
+    // connect(auth, &AuthService::loginSuccess, this, [=]() {
+    //     ui->stackedWidget->setCurrentWidget(ui->pageChat);
+    //     chat->connectToServer();
+    //     ui->isSuccess->setText("Login Success");
+    // });
 
-    connect(auth, &AuthService::loginError, this, [=](){
-        ui->isSuccess->setText("<font color='#ff0000'><b>Authentication failed</b></font>");
-    });
+    connect(auth, &AuthService::loginError, this,
+            [=](const QString& message) {
+
+                ui->isSuccess->setText(
+                    QString("<font color='#ff0000'><b>"
+                            "%1<br>"
+                            "</b></font>")
+                        .arg(message)
+                    );
+            });
 
     connect(chat, &ChatClient::messageReceived,
             this, &MainWindow::onMessageReceived);

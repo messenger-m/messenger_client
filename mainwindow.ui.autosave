@@ -65,14 +65,14 @@
      <widget class="QPushButton" name="loginButton">
       <property name="geometry">
        <rect>
-        <x>340</x>
+        <x>270</x>
         <y>420</y>
         <width>94</width>
         <height>26</height>
        </rect>
       </property>
       <property name="text">
-       <string>LogIn</string>
+       <string>Sing In</string>
       </property>
      </widget>
      <widget class="QPushButton" name="toggleButton">
@@ -102,6 +102,19 @@
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="loginButton_2">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>420</y>
+        <width>94</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Sing Up</string>
       </property>
      </widget>
     </widget>
