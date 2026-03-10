@@ -2,8 +2,7 @@
 
 
 bool AuthClient::registerUser(const std::string& username,
-                  const std::string& password,
-                  std::string& message)
+                  const std::string& password)
 {
     auth::RegisterRequest request;
     request.set_username(username);
@@ -15,19 +14,16 @@ bool AuthClient::registerUser(const std::string& username,
     grpc::Status status = stub_->Register(&context, request, &reply);
 
     if (status.ok()) {
-        message = reply.message();
         return reply.success();
     } else {
-        message = status.error_message();
         return false;
     }
 }
 
 bool AuthClient::loginUser(const std::string& username,
                const std::string& password,
-               std::string& token,
-               std::string& refreshToken,
-               std::string& message)
+               std::string& token
+               )
 {
     auth::LoginRequest request;
     request.set_username(username);
@@ -40,11 +36,8 @@ bool AuthClient::loginUser(const std::string& username,
 
     if (status.ok()) {
         token = reply.token();
-        refreshToken = reply.refresh_token();
-        message = "login successful";
         return true;
     } else {
-        message = status.error_message();
         return false;
     }
 }

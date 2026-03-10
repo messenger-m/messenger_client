@@ -696,21 +696,51 @@ class RegisterReply final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kMessageFieldNumber = 2,
+    kUsernameFieldNumber = 2,
+    kTokenFieldNumber = 3,
+    kPasswordFieldNumber = 4,
     kSuccessFieldNumber = 1,
   };
-  // string message = 2;
-  void clear_message();
-  const std::string& message() const;
+  // string username = 2;
+  void clear_username();
+  const std::string& username() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_message(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_message();
-  PROTOBUF_NODISCARD std::string* release_message();
-  void set_allocated_message(std::string* message);
+  void set_username(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_username();
+  PROTOBUF_NODISCARD std::string* release_username();
+  void set_allocated_username(std::string* username);
   private:
-  const std::string& _internal_message() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(const std::string& value);
-  std::string* _internal_mutable_message();
+  const std::string& _internal_username() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username(const std::string& value);
+  std::string* _internal_mutable_username();
+  public:
+
+  // string token = 3;
+  void clear_token();
+  const std::string& token() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_token(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_token();
+  PROTOBUF_NODISCARD std::string* release_token();
+  void set_allocated_token(std::string* token);
+  private:
+  const std::string& _internal_token() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_token(const std::string& value);
+  std::string* _internal_mutable_token();
+  public:
+
+  // string password = 4;
+  void clear_password();
+  const std::string& password() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_password(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_password();
+  PROTOBUF_NODISCARD std::string* release_password();
+  void set_allocated_password(std::string* password);
+  private:
+  const std::string& _internal_password() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_password(const std::string& value);
+  std::string* _internal_mutable_password();
   public:
 
   // bool success = 1;
@@ -730,7 +760,9 @@ class RegisterReply final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_;
     bool success_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -1080,54 +1112,154 @@ inline void RegisterReply::set_success(bool value) {
   // @@protoc_insertion_point(field_set:auth.RegisterReply.success)
 }
 
-// string message = 2;
-inline void RegisterReply::clear_message() {
-  _impl_.message_.ClearToEmpty();
+// string username = 2;
+inline void RegisterReply::clear_username() {
+  _impl_.username_.ClearToEmpty();
 }
-inline const std::string& RegisterReply::message() const {
-  // @@protoc_insertion_point(field_get:auth.RegisterReply.message)
-  return _internal_message();
+inline const std::string& RegisterReply::username() const {
+  // @@protoc_insertion_point(field_get:auth.RegisterReply.username)
+  return _internal_username();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void RegisterReply::set_message(ArgT0&& arg0, ArgT... args) {
+void RegisterReply::set_username(ArgT0&& arg0, ArgT... args) {
  
- _impl_.message_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:auth.RegisterReply.message)
+ _impl_.username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:auth.RegisterReply.username)
 }
-inline std::string* RegisterReply::mutable_message() {
-  std::string* _s = _internal_mutable_message();
-  // @@protoc_insertion_point(field_mutable:auth.RegisterReply.message)
+inline std::string* RegisterReply::mutable_username() {
+  std::string* _s = _internal_mutable_username();
+  // @@protoc_insertion_point(field_mutable:auth.RegisterReply.username)
   return _s;
 }
-inline const std::string& RegisterReply::_internal_message() const {
-  return _impl_.message_.Get();
+inline const std::string& RegisterReply::_internal_username() const {
+  return _impl_.username_.Get();
 }
-inline void RegisterReply::_internal_set_message(const std::string& value) {
+inline void RegisterReply::_internal_set_username(const std::string& value) {
   
-  _impl_.message_.Set(value, GetArenaForAllocation());
+  _impl_.username_.Set(value, GetArenaForAllocation());
 }
-inline std::string* RegisterReply::_internal_mutable_message() {
+inline std::string* RegisterReply::_internal_mutable_username() {
   
-  return _impl_.message_.Mutable(GetArenaForAllocation());
+  return _impl_.username_.Mutable(GetArenaForAllocation());
 }
-inline std::string* RegisterReply::release_message() {
-  // @@protoc_insertion_point(field_release:auth.RegisterReply.message)
-  return _impl_.message_.Release();
+inline std::string* RegisterReply::release_username() {
+  // @@protoc_insertion_point(field_release:auth.RegisterReply.username)
+  return _impl_.username_.Release();
 }
-inline void RegisterReply::set_allocated_message(std::string* message) {
-  if (message != nullptr) {
+inline void RegisterReply::set_allocated_username(std::string* username) {
+  if (username != nullptr) {
     
   } else {
     
   }
-  _impl_.message_.SetAllocated(message, GetArenaForAllocation());
+  _impl_.username_.SetAllocated(username, GetArenaForAllocation());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.message_.IsDefault()) {
-    _impl_.message_.Set("", GetArenaForAllocation());
+  if (_impl_.username_.IsDefault()) {
+    _impl_.username_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:auth.RegisterReply.message)
+  // @@protoc_insertion_point(field_set_allocated:auth.RegisterReply.username)
+}
+
+// string token = 3;
+inline void RegisterReply::clear_token() {
+  _impl_.token_.ClearToEmpty();
+}
+inline const std::string& RegisterReply::token() const {
+  // @@protoc_insertion_point(field_get:auth.RegisterReply.token)
+  return _internal_token();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RegisterReply::set_token(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.token_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:auth.RegisterReply.token)
+}
+inline std::string* RegisterReply::mutable_token() {
+  std::string* _s = _internal_mutable_token();
+  // @@protoc_insertion_point(field_mutable:auth.RegisterReply.token)
+  return _s;
+}
+inline const std::string& RegisterReply::_internal_token() const {
+  return _impl_.token_.Get();
+}
+inline void RegisterReply::_internal_set_token(const std::string& value) {
+  
+  _impl_.token_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RegisterReply::_internal_mutable_token() {
+  
+  return _impl_.token_.Mutable(GetArenaForAllocation());
+}
+inline std::string* RegisterReply::release_token() {
+  // @@protoc_insertion_point(field_release:auth.RegisterReply.token)
+  return _impl_.token_.Release();
+}
+inline void RegisterReply::set_allocated_token(std::string* token) {
+  if (token != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.token_.SetAllocated(token, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.token_.IsDefault()) {
+    _impl_.token_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:auth.RegisterReply.token)
+}
+
+// string password = 4;
+inline void RegisterReply::clear_password() {
+  _impl_.password_.ClearToEmpty();
+}
+inline const std::string& RegisterReply::password() const {
+  // @@protoc_insertion_point(field_get:auth.RegisterReply.password)
+  return _internal_password();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RegisterReply::set_password(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.password_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:auth.RegisterReply.password)
+}
+inline std::string* RegisterReply::mutable_password() {
+  std::string* _s = _internal_mutable_password();
+  // @@protoc_insertion_point(field_mutable:auth.RegisterReply.password)
+  return _s;
+}
+inline const std::string& RegisterReply::_internal_password() const {
+  return _impl_.password_.Get();
+}
+inline void RegisterReply::_internal_set_password(const std::string& value) {
+  
+  _impl_.password_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RegisterReply::_internal_mutable_password() {
+  
+  return _impl_.password_.Mutable(GetArenaForAllocation());
+}
+inline std::string* RegisterReply::release_password() {
+  // @@protoc_insertion_point(field_release:auth.RegisterReply.password)
+  return _impl_.password_.Release();
+}
+inline void RegisterReply::set_allocated_password(std::string* password) {
+  if (password != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.password_.SetAllocated(password, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.password_.IsDefault()) {
+    _impl_.password_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:auth.RegisterReply.password)
 }
 
 #ifdef __GNUC__

@@ -24,5 +24,7 @@ message RegisterRequest {
 
 message RegisterReply {
     bool success = 1;
-    string message = 2;
+    string username = 2;
+    string token = 3;
+    string password = 4;
 }

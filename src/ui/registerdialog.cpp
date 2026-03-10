@@ -43,23 +43,20 @@ void RegisterDialog::onRegisterClicked()
                             grpc::InsecureChannelCredentials())
         );
 
-    std::string message;
-
     bool success = client.registerUser(
         username.toStdString(),
-        password.toStdString(),
-        message
+        password.toStdString()
         );
 
     if(success)
     {
         QMessageBox::information(this, "Success",
-                                 QString::fromStdString(message));
+                                 QString::fromStdString("Success create User"));
         accept();
     }
     else
     {
         QMessageBox::warning(this, "Error",
-                             QString::fromStdString(message));
+                             QString::fromStdString("Error create User"));
     }
 }

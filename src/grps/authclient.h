@@ -12,14 +12,13 @@ public:
         : stub_(auth::AuthService::NewStub(channel)) {}
 
     bool registerUser(const std::string& username,
-                      const std::string& password,
-                      std::string& message);
+                      const std::string& password
+                      );
 
 bool loginUser(const std::string& username,
                const std::string& password,
-               std::string& token,
-               std::string& refreshToken,
-                   std::string& message);
+               std::string& token
+                );
 
 private:
     std::unique_ptr<auth::AuthService::Stub> stub_;
