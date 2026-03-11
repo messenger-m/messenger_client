@@ -38,7 +38,6 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR LoginResponse::LoginResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.refresh_token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct LoginResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR LoginResponseDefaultTypeInternal()
@@ -66,7 +65,6 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR RegisterReply::RegisterReply(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.password_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.success_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
@@ -100,7 +98,6 @@ const uint32_t TableStruct_auth_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::auth::LoginResponse, _impl_.token_),
-  PROTOBUF_FIELD_OFFSET(::auth::LoginResponse, _impl_.refresh_token_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::auth::RegisterRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -117,14 +114,13 @@ const uint32_t TableStruct_auth_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::auth::RegisterReply, _impl_.success_),
   PROTOBUF_FIELD_OFFSET(::auth::RegisterReply, _impl_.username_),
-  PROTOBUF_FIELD_OFFSET(::auth::RegisterReply, _impl_.token_),
   PROTOBUF_FIELD_OFFSET(::auth::RegisterReply, _impl_.password_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::auth::LoginRequest)},
   { 8, -1, -1, sizeof(::auth::LoginResponse)},
-  { 16, -1, -1, sizeof(::auth::RegisterRequest)},
-  { 24, -1, -1, sizeof(::auth::RegisterReply)},
+  { 15, -1, -1, sizeof(::auth::RegisterRequest)},
+  { 23, -1, -1, sizeof(::auth::RegisterReply)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -136,19 +132,18 @@ static const ::_pb::Message* const file_default_instances[] = {
 
 const char descriptor_table_protodef_auth_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\nauth.proto\022\004auth\"2\n\014LoginRequest\022\020\n\010us"
-  "ername\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"5\n\rLoginR"
-  "esponse\022\r\n\005token\030\001 \001(\t\022\025\n\rrefresh_token\030"
-  "\002 \001(\t\"5\n\017RegisterRequest\022\020\n\010username\030\001 \001"
-  "(\t\022\020\n\010password\030\002 \001(\t\"S\n\rRegisterReply\022\017\n"
-  "\007success\030\001 \001(\010\022\020\n\010username\030\002 \001(\t\022\r\n\005toke"
-  "n\030\003 \001(\t\022\020\n\010password\030\004 \001(\t2w\n\013AuthService"
-  "\0220\n\005Login\022\022.auth.LoginRequest\032\023.auth.Log"
-  "inResponse\0226\n\010Register\022\025.auth.RegisterRe"
-  "quest\032\023.auth.RegisterReplyb\006proto3"
+  "ername\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"\036\n\rLoginR"
+  "esponse\022\r\n\005token\030\001 \001(\t\"5\n\017RegisterReques"
+  "t\022\020\n\010username\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"D\n"
+  "\rRegisterReply\022\017\n\007success\030\001 \001(\010\022\020\n\010usern"
+  "ame\030\002 \001(\t\022\020\n\010password\030\003 \001(\t2w\n\013AuthServi"
+  "ce\0220\n\005Login\022\022.auth.LoginRequest\032\023.auth.L"
+  "oginResponse\0226\n\010Register\022\025.auth.Register"
+  "Request\032\023.auth.RegisterReplyb\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_auth_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_auth_2eproto = {
-    false, false, 394, descriptor_table_protodef_auth_2eproto,
+    false, false, 356, descriptor_table_protodef_auth_2eproto,
     "auth.proto",
     &descriptor_table_auth_2eproto_once, nullptr, 0, 4,
     schemas, file_default_instances, TableStruct_auth_2eproto::offsets,
@@ -433,7 +428,6 @@ LoginResponse::LoginResponse(const LoginResponse& from)
   LoginResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.token_){}
-    , decltype(_impl_.refresh_token_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -445,14 +439,6 @@ LoginResponse::LoginResponse(const LoginResponse& from)
     _this->_impl_.token_.Set(from._internal_token(), 
       _this->GetArenaForAllocation());
   }
-  _impl_.refresh_token_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.refresh_token_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_refresh_token().empty()) {
-    _this->_impl_.refresh_token_.Set(from._internal_refresh_token(), 
-      _this->GetArenaForAllocation());
-  }
   // @@protoc_insertion_point(copy_constructor:auth.LoginResponse)
 }
 
@@ -462,16 +448,11 @@ inline void LoginResponse::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.token_){}
-    , decltype(_impl_.refresh_token_){}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.token_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.refresh_token_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.refresh_token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -487,7 +468,6 @@ LoginResponse::~LoginResponse() {
 inline void LoginResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.token_.Destroy();
-  _impl_.refresh_token_.Destroy();
 }
 
 void LoginResponse::SetCachedSize(int size) const {
@@ -501,7 +481,6 @@ void LoginResponse::Clear() {
   (void) cached_has_bits;
 
   _impl_.token_.ClearToEmpty();
-  _impl_.refresh_token_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -518,16 +497,6 @@ const char* LoginResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext*
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, "auth.LoginResponse.token"));
-        } else
-          goto handle_unusual;
-        continue;
-      // string refresh_token = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          auto str = _internal_mutable_refresh_token();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "auth.LoginResponse.refresh_token"));
         } else
           goto handle_unusual;
         continue;
@@ -570,16 +539,6 @@ uint8_t* LoginResponse::_InternalSerialize(
         1, this->_internal_token(), target);
   }
 
-  // string refresh_token = 2;
-  if (!this->_internal_refresh_token().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_refresh_token().data(), static_cast<int>(this->_internal_refresh_token().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "auth.LoginResponse.refresh_token");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_refresh_token(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -603,13 +562,6 @@ size_t LoginResponse::ByteSizeLong() const {
         this->_internal_token());
   }
 
-  // string refresh_token = 2;
-  if (!this->_internal_refresh_token().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_refresh_token());
-  }
-
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -630,9 +582,6 @@ void LoginResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
 
   if (!from._internal_token().empty()) {
     _this->_internal_set_token(from._internal_token());
-  }
-  if (!from._internal_refresh_token().empty()) {
-    _this->_internal_set_refresh_token(from._internal_refresh_token());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -656,10 +605,6 @@ void LoginResponse::InternalSwap(LoginResponse* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.token_, lhs_arena,
       &other->_impl_.token_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.refresh_token_, lhs_arena,
-      &other->_impl_.refresh_token_, rhs_arena
   );
 }
 
@@ -939,7 +884,6 @@ RegisterReply::RegisterReply(const RegisterReply& from)
   RegisterReply* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.username_){}
-    , decltype(_impl_.token_){}
     , decltype(_impl_.password_){}
     , decltype(_impl_.success_){}
     , /*decltype(_impl_._cached_size_)*/{}};
@@ -951,14 +895,6 @@ RegisterReply::RegisterReply(const RegisterReply& from)
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_username().empty()) {
     _this->_impl_.username_.Set(from._internal_username(), 
-      _this->GetArenaForAllocation());
-  }
-  _impl_.token_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.token_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_token().empty()) {
-    _this->_impl_.token_.Set(from._internal_token(), 
       _this->GetArenaForAllocation());
   }
   _impl_.password_.InitDefault();
@@ -979,7 +915,6 @@ inline void RegisterReply::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.username_){}
-    , decltype(_impl_.token_){}
     , decltype(_impl_.password_){}
     , decltype(_impl_.success_){false}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -987,10 +922,6 @@ inline void RegisterReply::SharedCtor(
   _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.username_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.token_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.password_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -1010,7 +941,6 @@ RegisterReply::~RegisterReply() {
 inline void RegisterReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.username_.Destroy();
-  _impl_.token_.Destroy();
   _impl_.password_.Destroy();
 }
 
@@ -1025,7 +955,6 @@ void RegisterReply::Clear() {
   (void) cached_has_bits;
 
   _impl_.username_.ClearToEmpty();
-  _impl_.token_.ClearToEmpty();
   _impl_.password_.ClearToEmpty();
   _impl_.success_ = false;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -1055,19 +984,9 @@ const char* RegisterReply::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
-      // string token = 3;
+      // string password = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_token();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "auth.RegisterReply.token"));
-        } else
-          goto handle_unusual;
-        continue;
-      // string password = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_password();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -1120,24 +1039,14 @@ uint8_t* RegisterReply::_InternalSerialize(
         2, this->_internal_username(), target);
   }
 
-  // string token = 3;
-  if (!this->_internal_token().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_token().data(), static_cast<int>(this->_internal_token().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "auth.RegisterReply.token");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_token(), target);
-  }
-
-  // string password = 4;
+  // string password = 3;
   if (!this->_internal_password().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_password().data(), static_cast<int>(this->_internal_password().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "auth.RegisterReply.password");
     target = stream->WriteStringMaybeAliased(
-        4, this->_internal_password(), target);
+        3, this->_internal_password(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1163,14 +1072,7 @@ size_t RegisterReply::ByteSizeLong() const {
         this->_internal_username());
   }
 
-  // string token = 3;
-  if (!this->_internal_token().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_token());
-  }
-
-  // string password = 4;
+  // string password = 3;
   if (!this->_internal_password().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -1203,9 +1105,6 @@ void RegisterReply::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   if (!from._internal_username().empty()) {
     _this->_internal_set_username(from._internal_username());
   }
-  if (!from._internal_token().empty()) {
-    _this->_internal_set_token(from._internal_token());
-  }
   if (!from._internal_password().empty()) {
     _this->_internal_set_password(from._internal_password());
   }
@@ -1234,10 +1133,6 @@ void RegisterReply::InternalSwap(RegisterReply* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.username_, lhs_arena,
       &other->_impl_.username_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.token_, lhs_arena,
-      &other->_impl_.token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.password_, lhs_arena,

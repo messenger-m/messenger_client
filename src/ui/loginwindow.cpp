@@ -1,6 +1,7 @@
 #include "loginwindow.h"
 #include "ui_loginwindow.h"
 #include "registerdialog.h"
+#include "../grps/authclient.h"
 #include <QMessageBox>
 
 LoginWindow::LoginWindow(QWidget *parent)
@@ -84,9 +85,19 @@ void LoginWindow::onLoginClicked()
         return;
     }
 
-    if(login == "admin" && password == "123")
+    AuthClient client(
+        grpc::CreateChannel("localhost:50051",
+                            grpc::InsecureChannelCredentials())
+        );
+
+    bool success = client.loginUser(
+        login.toStdString(),
+        password.toStdString()
+        );
+    if(success)
     {
-        emit loginSuccess("fake_token");
+        QMessageBox::information(this, "Success",
+                                 QString::fromStdString("Success create User"));
     }
     else
     {

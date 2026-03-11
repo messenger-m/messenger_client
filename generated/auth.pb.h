@@ -359,7 +359,6 @@ class LoginResponse final :
 
   enum : int {
     kTokenFieldNumber = 1,
-    kRefreshTokenFieldNumber = 2,
   };
   // string token = 1;
   void clear_token();
@@ -375,20 +374,6 @@ class LoginResponse final :
   std::string* _internal_mutable_token();
   public:
 
-  // string refresh_token = 2;
-  void clear_refresh_token();
-  const std::string& refresh_token() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_refresh_token(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_refresh_token();
-  PROTOBUF_NODISCARD std::string* release_refresh_token();
-  void set_allocated_refresh_token(std::string* refresh_token);
-  private:
-  const std::string& _internal_refresh_token() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_refresh_token(const std::string& value);
-  std::string* _internal_mutable_refresh_token();
-  public:
-
   // @@protoc_insertion_point(class_scope:auth.LoginResponse)
  private:
   class _Internal;
@@ -398,7 +383,6 @@ class LoginResponse final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr refresh_token_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -697,8 +681,7 @@ class RegisterReply final :
 
   enum : int {
     kUsernameFieldNumber = 2,
-    kTokenFieldNumber = 3,
-    kPasswordFieldNumber = 4,
+    kPasswordFieldNumber = 3,
     kSuccessFieldNumber = 1,
   };
   // string username = 2;
@@ -715,21 +698,7 @@ class RegisterReply final :
   std::string* _internal_mutable_username();
   public:
 
-  // string token = 3;
-  void clear_token();
-  const std::string& token() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_token(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_token();
-  PROTOBUF_NODISCARD std::string* release_token();
-  void set_allocated_token(std::string* token);
-  private:
-  const std::string& _internal_token() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_token(const std::string& value);
-  std::string* _internal_mutable_token();
-  public:
-
-  // string password = 4;
+  // string password = 3;
   void clear_password();
   const std::string& password() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -761,7 +730,6 @@ class RegisterReply final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_;
     bool success_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -932,56 +900,6 @@ inline void LoginResponse::set_allocated_token(std::string* token) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:auth.LoginResponse.token)
-}
-
-// string refresh_token = 2;
-inline void LoginResponse::clear_refresh_token() {
-  _impl_.refresh_token_.ClearToEmpty();
-}
-inline const std::string& LoginResponse::refresh_token() const {
-  // @@protoc_insertion_point(field_get:auth.LoginResponse.refresh_token)
-  return _internal_refresh_token();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void LoginResponse::set_refresh_token(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.refresh_token_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:auth.LoginResponse.refresh_token)
-}
-inline std::string* LoginResponse::mutable_refresh_token() {
-  std::string* _s = _internal_mutable_refresh_token();
-  // @@protoc_insertion_point(field_mutable:auth.LoginResponse.refresh_token)
-  return _s;
-}
-inline const std::string& LoginResponse::_internal_refresh_token() const {
-  return _impl_.refresh_token_.Get();
-}
-inline void LoginResponse::_internal_set_refresh_token(const std::string& value) {
-  
-  _impl_.refresh_token_.Set(value, GetArenaForAllocation());
-}
-inline std::string* LoginResponse::_internal_mutable_refresh_token() {
-  
-  return _impl_.refresh_token_.Mutable(GetArenaForAllocation());
-}
-inline std::string* LoginResponse::release_refresh_token() {
-  // @@protoc_insertion_point(field_release:auth.LoginResponse.refresh_token)
-  return _impl_.refresh_token_.Release();
-}
-inline void LoginResponse::set_allocated_refresh_token(std::string* refresh_token) {
-  if (refresh_token != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.refresh_token_.SetAllocated(refresh_token, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.refresh_token_.IsDefault()) {
-    _impl_.refresh_token_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:auth.LoginResponse.refresh_token)
 }
 
 // -------------------------------------------------------------------
@@ -1162,57 +1080,7 @@ inline void RegisterReply::set_allocated_username(std::string* username) {
   // @@protoc_insertion_point(field_set_allocated:auth.RegisterReply.username)
 }
 
-// string token = 3;
-inline void RegisterReply::clear_token() {
-  _impl_.token_.ClearToEmpty();
-}
-inline const std::string& RegisterReply::token() const {
-  // @@protoc_insertion_point(field_get:auth.RegisterReply.token)
-  return _internal_token();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void RegisterReply::set_token(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.token_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:auth.RegisterReply.token)
-}
-inline std::string* RegisterReply::mutable_token() {
-  std::string* _s = _internal_mutable_token();
-  // @@protoc_insertion_point(field_mutable:auth.RegisterReply.token)
-  return _s;
-}
-inline const std::string& RegisterReply::_internal_token() const {
-  return _impl_.token_.Get();
-}
-inline void RegisterReply::_internal_set_token(const std::string& value) {
-  
-  _impl_.token_.Set(value, GetArenaForAllocation());
-}
-inline std::string* RegisterReply::_internal_mutable_token() {
-  
-  return _impl_.token_.Mutable(GetArenaForAllocation());
-}
-inline std::string* RegisterReply::release_token() {
-  // @@protoc_insertion_point(field_release:auth.RegisterReply.token)
-  return _impl_.token_.Release();
-}
-inline void RegisterReply::set_allocated_token(std::string* token) {
-  if (token != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.token_.SetAllocated(token, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.token_.IsDefault()) {
-    _impl_.token_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:auth.RegisterReply.token)
-}
-
-// string password = 4;
+// string password = 3;
 inline void RegisterReply::clear_password() {
   _impl_.password_.ClearToEmpty();
 }

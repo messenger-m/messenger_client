@@ -16,8 +16,7 @@ public:
                       );
 
 bool loginUser(const std::string& username,
-               const std::string& password,
-               std::string& token
+               const std::string& password
                 );
 
 private:
