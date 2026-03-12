@@ -3,6 +3,7 @@
 #include "registerdialog.h"
 #include "../grps/authclient.h"
 #include <QMessageBox>
+#include <QDebug>
 
 LoginWindow::LoginWindow(QWidget *parent)
     : QWidget(parent)
@@ -96,8 +97,9 @@ void LoginWindow::onLoginClicked()
         );
     if(success)
     {
-        QMessageBox::information(this, "Success",
-                                 QString::fromStdString("Success create User"));
+        qDebug() << client.getToken();
+        QMessageBox::information(this,"Success","Login success");
+        emit loginSuccess(QString::fromStdString(client.getToken()));
     }
     else
     {

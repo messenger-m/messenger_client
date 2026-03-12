@@ -1,6 +1,4 @@
 #include "authclient.h"
-#include <QDebug>
-
 
 bool AuthClient::registerUser(const std::string& username,
                   const std::string& password)
@@ -35,10 +33,14 @@ bool AuthClient::loginUser(const std::string& username,
     grpc::Status status = stub_->Login(&context, request, &reply);
 
     if (status.ok()) {
-        qDebug() << reply.token();
+        token = reply.token();
         return true;
     } else {
-        qDebug() << reply.token();
+        token = "";
         return false;
     }
+}
+
+std::string AuthClient::getToken(){
+    return token;
 }

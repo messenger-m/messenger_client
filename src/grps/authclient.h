@@ -15,12 +15,15 @@ public:
                       const std::string& password
                       );
 
-bool loginUser(const std::string& username,
-               const std::string& password
-                );
+    bool loginUser(const std::string& username,
+                   const std::string& password
+                    );
+
+    std::string getToken();
 
 private:
     std::unique_ptr<auth::AuthService::Stub> stub_;
+    std::string token;
 };
 
 #endif // AUTHCLIENT_H
