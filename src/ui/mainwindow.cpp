@@ -12,6 +12,50 @@ MainWindow::MainWindow(QString token, QWidget *parent)
     resize(900, 600);
 
     ui->splitter->setSizes({250, 650});
+    ui->chatList->addItem("Notes");
+    ui->chatList->addItem("Alice");
+    ui->chatList->addItem("Bob");
+    ui->chatList->setCurrentRow(0);
+    currentChat = "Notes";
+
+    connect(ui->chatList, &QListWidget::itemClicked,
+            this, [this](QListWidgetItem* item)
+            {
+                currentChat = item->text();
+
+                ui->messageView->clear();
+
+                for(const ChatMessage& msg : chats[currentChat])
+                {
+                    ui->messageView->addItem(msg.sender + ": " + msg.text);
+                }
+            });
+
+    connect(ui->sendButton, &QPushButton::clicked,
+            this, [this]()
+            {
+                QString text = ui->messageEdit->text();
+
+                if(text.isEmpty())
+                    return;
+
+                ChatMessage msg;
+                msg.sender = "You";
+                msg.text = text;
+
+                chats[currentChat].append(msg);
+
+                ui->messageView->addItem("You: " + text);
+
+                ui->messageView->scrollToBottom();
+
+                ui->messageEdit->clear();
+            });
+
+    connect(ui->messageEdit,
+            &QLineEdit::returnPressed,
+            ui->sendButton,
+            &QPushButton::click);
 
     setStyleSheet(R"(
 QMainWindow {
@@ -23,6 +67,7 @@ QListWidget {
     border: none;
     color: white;
     padding: 6px;
+    border-radius: 8px;
 }
 
 QListWidget::item {
@@ -70,3 +115,5 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+

@@ -68,6 +68,17 @@ QPushButton#registerButton:hover {
                 RegisterDialog dialog(this);
                 dialog.exec();
             });
+
+    connect(ui->loginEdit,
+            &QLineEdit::returnPressed,
+            ui->loginButton,
+            &QPushButton::click);
+
+    connect(ui->passwordEdit,
+            &QLineEdit::returnPressed,
+            ui->loginButton,
+            &QPushButton::click);
+
 }
 
 LoginWindow::~LoginWindow()
