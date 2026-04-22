@@ -9,6 +9,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 find_package(Protobuf REQUIRED)
 
@@ -39,6 +40,10 @@ qt_add_executable(messenger_client
     generated/auth.grpc.pb.cc
     generated/auth.pb.cc
     .gitignore
+    src/ui/chatitemwidget.h src/ui/chatitemwidget.cpp
+    src/ui/messagebubble.h src/ui/messagebubble.cpp
+    src/ui/addchatdialog.h src/ui/addchatdialog.cpp
+
 
 )
 target_include_directories(messenger_client PRIVATE
@@ -52,5 +57,6 @@ target_link_libraries(
     gRPC::grpc++
     protobuf::libprotobuf
 )
+target_link_libraries(messenger_client PRIVATE Qt6::Widgets)
 
 qt_standard_project_setup()
